@@ -43,7 +43,7 @@ public class GirlController {
      */
     @RequestMapping(value = "/girls/{id}",method = RequestMethod.POST)
     public Girl getGirl(@PathVariable("id") Integer id){
-        return girlRep.findOne(id);
+        return girlRep.getOne(id);
     }
 
     /**
@@ -70,7 +70,7 @@ public class GirlController {
      */
     @DeleteMapping(value = "/girls/{id}")
     public void updateGirl(@PathVariable("id") Integer id){
-        girlRep.delete(id);
+        girlRep.deleteById(id);
     }
 
     @RequestMapping(value = "girls/age/{age}",method = RequestMethod.GET)
