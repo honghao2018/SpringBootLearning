@@ -15,6 +15,9 @@
         <module>firstspringboot-2h</module>
         <module>springboot-first-application</module>
         <module>springboot-config</module>
+        <module>springboot-mybatis</module>
+        <module>springboot-swagger</module>
+        <module>springboot-scheduling-tasks</module>
     </modules>
 
     <parent>

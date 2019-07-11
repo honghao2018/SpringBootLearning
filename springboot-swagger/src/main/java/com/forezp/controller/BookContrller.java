@@ -4,7 +4,6 @@ import com.forezp.entity.Book;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -23,8 +22,15 @@ import java.util.*;
 @RequestMapping(value = "/books")
 public class BookContrller {
 
+    /**
+     * 创建线程安全的map
+     */
     Map<Long, Book> books = Collections.synchronizedMap(new HashMap<Long, Book>());
 
+    /**
+     * 查询所有
+     * @return
+     */
     @ApiOperation(value="获取图书列表", notes="获取图书列表")
     @RequestMapping(value={""}, method= RequestMethod.GET)
     public List<Book> getBook() {
@@ -32,6 +38,11 @@ public class BookContrller {
         return book;
     }
 
+    /**
+     * 新增
+     * @param book
+     * @return
+     */
     @ApiOperation(value="创建图书", notes="创建图书")
     @ApiImplicitParam(name = "book", value = "图书详细实体", required = true, dataType = "Book")
     @RequestMapping(value="", method=RequestMethod.POST)
@@ -39,6 +50,12 @@ public class BookContrller {
         books.put(book.getId(), book);
         return "success";
     }
+
+    /**
+     * 根据ID查询
+     * @param id
+     * @return
+     */
     @ApiOperation(value="获图书细信息", notes="根据url的id来获取详细信息")
     @ApiImplicitParam(name = "id", value = "ID", required = true, dataType = "Long",paramType = "path")
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
@@ -46,6 +63,12 @@ public class BookContrller {
         return books.get(id);
     }
 
+    /**
+     * 根据id修改
+     * @param id
+     * @param book
+     * @return
+     */
     @ApiOperation(value="更新信息", notes="根据url的id来指定更新图书信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "图书ID", required = true, dataType = "Long",paramType = "path"),
@@ -59,6 +82,7 @@ public class BookContrller {
         books.put(id, book1);
         return "success";
     }
+
     @ApiOperation(value="删除图书", notes="根据url的id来指定删除图书")
     @ApiImplicitParam(name = "id", value = "图书ID", required = true, dataType = "Long",paramType = "path")
     @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
